@@ -56,4 +56,20 @@ class AuthService {
       "password": password,
     });
   }
+
+  Future<String?> signInGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser!.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final user = await firebaseAuth.signInWithCredential(credential);
+
+    return user.user!.email;
+  }
 }
