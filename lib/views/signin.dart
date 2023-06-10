@@ -1,38 +1,14 @@
 import 'package:firebase_auth_app/services/auth_service.dart';
-import 'package:firebase_auth_app/views/signin.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Auth',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: RegisterPage(),
-    );
-  }
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
-  @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends State<RegisterPage> {
+class _SignInPageState extends State<SignInPage> {
   final tfEmail = TextEditingController();
   final tfUsername = TextEditingController();
   final tfPassword = TextEditingController();
@@ -43,26 +19,20 @@ class _RegisterPageState extends State<RegisterPage> {
       appBar: CupertinoNavigationBar(
         middle: Text('Firebase Auth'),
         trailing: TextButton(
-          child: Text('Sign In'),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SignInPage(),
-                ));
-          },
+          child: Text('Exit'),
+          onPressed: () {},
         ),
       ),
       body: Center(
         child: Container(
-          height: 260,
+          height: 200,
           width: 300,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Center(
                 child: Text(
-                  'Register',
+                  'Sign In',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -72,18 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 prefix: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(
-                    Icons.alternate_email_rounded,
-                    color: Colors.grey.shade500,
-                  ),
-                ),
-              ),
-              CupertinoTextField(
-                controller: tfUsername,
-                placeholder: 'username',
-                prefix: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.account_circle,
+                    Icons.alternate_email,
                     color: Colors.grey.shade500,
                   ),
                 ),
@@ -101,13 +60,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               CupertinoButton.filled(
-                child: Text('Create Account'),
+                child: Text('Sign In'),
                 onPressed: () {
-                  AuthService().signUp(
-                      email: tfEmail.text,
-                      username: tfUsername.text,
-                      password: tfPassword.text,
-                      context: context);
+                  AuthService().signIn(
+                    context: context,
+                    email: tfEmail.text,
+                    password: tfPassword.text,
+                  );
                 },
               )
             ],
