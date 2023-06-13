@@ -60,7 +60,7 @@ class AuthService {
     });
   }
 
-  Future<String?> signInGoogle() async {
+  Future<User?> signInGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     final GoogleSignInAuthentication googleAuth =
@@ -74,6 +74,23 @@ class AuthService {
     final user = await firebaseAuth.signInWithCredential(credential);
     log(user.user!.email.toString());
 
-    return user.user!.email;
+    return user.user;
+  }
+
+  Future<void> signOut() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? currentUser = await GoogleSignIn().currentUser;
+    await googleSignIn.disconnect();
+    await googleSignIn.signOut();
+    log('message');
+    log(googleSignIn.signInOption.toString());
+
+    if (currentUser != null) {
+      await googleSignIn.disconnect();
+      await googleSignIn.signOut();
+      log(googleSignIn.toString());
+    } else {
+      log('message');
+    }
   }
 }
