@@ -12,7 +12,6 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,6 +38,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isObscure = false;
+
     return Scaffold(
       appBar: CupertinoNavigationBar(
         middle: Text('Firebase Auth'),
@@ -55,7 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       body: Center(
         child: Container(
-          height: 260,
+          height: 300,
           width: 300,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,7 +90,16 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               CupertinoTextField(
-                obscureText: true,
+                suffix: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isObscure = !isObscure;
+                      });
+                    },
+                    icon: isObscure == true
+                        ? Icon(Icons.visibility)
+                        : Icon(Icons.visibility_off)),
+                obscureText: isObscure == true ? true : false,
                 controller: tfPassword,
                 placeholder: 'password',
                 prefix: Padding(
@@ -104,11 +114,25 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Text('Create Account'),
                 onPressed: () {
                   AuthService().signUp(
-                      email: tfEmail.text,
-                      username: tfUsername.text,
-                      password: tfPassword.text,
-                      context: context);
+                    email: tfEmail.text,
+                    username: tfUsername.text,
+                    password: tfPassword.text,
+                    context: context,
+                  );
+
+                  tfPassword.clear();
                 },
+              ),
+              InkWell(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () {
+                  AuthService().signInGoogle();
+                },
+                child: Image.network(
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1024px-Google_%22G%22_Logo.svg.png',
+                  scale: 30,
+                ),
               )
             ],
           ),

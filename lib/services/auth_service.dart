@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_app/views/welcome.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
@@ -37,9 +37,12 @@ class AuthService {
     try {
       if (userCredential.user != null) {
         log('giriş başarılı');
-        navigator.push(MaterialPageRoute(
-          builder: (context) => WelcomePage(),
-        ));
+        navigator.pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => WelcomePage(),
+          ),
+          (route) => false,
+        );
       }
     } on FirebaseAuthException catch (e) {
       log(e.message.toString());
@@ -69,6 +72,7 @@ class AuthService {
     );
 
     final user = await firebaseAuth.signInWithCredential(credential);
+    log(user.user!.email.toString());
 
     return user.user!.email;
   }
