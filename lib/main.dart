@@ -39,8 +39,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    bool isObscure = false;
-
     return Scaffold(
       appBar: CupertinoNavigationBar(
         middle: Text('Firebase Auth'),
@@ -91,16 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               CupertinoTextField(
-                suffix: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isObscure = !isObscure;
-                      });
-                    },
-                    icon: isObscure == true
-                        ? Icon(Icons.visibility)
-                        : Icon(Icons.visibility_off)),
-                obscureText: isObscure == true ? true : false,
+                obscureText: true,
                 controller: tfPassword,
                 placeholder: 'password',
                 prefix: Padding(

@@ -27,10 +27,33 @@ class _WelcomePageState extends State<WelcomePage> {
           SizedBox(
             height: 20,
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Text(
+                  user == null ? '' : user.displayName.toString(),
+                  style: TextStyle(fontSize: 27),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(
+                width: 2,
+              ),
+              Center(
+                child: user!.emailVerified == true
+                    ? Icon(
+                        Icons.verified,
+                        size: 20,
+                      )
+                    : SizedBox.shrink(),
+              ),
+            ],
+          ),
           Center(
             child: Text(
-              user == null ? '' : user.displayName.toString(),
-              style: TextStyle(fontSize: 27),
+              user == null ? '' : user.uid,
+              style: TextStyle(fontSize: 10),
               textAlign: TextAlign.center,
             ),
           ),
@@ -44,14 +67,26 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
           ),
           SizedBox(
-            height: 50,
+            height: 150,
           ),
-          CupertinoButton.filled(
-            child: Text('Sign Out'),
-            onPressed: () {
-              AuthService().signOut();
-              Navigator.of(context).pop();
-            },
+          Container(
+            height: 50,
+            width: 230,
+            child: CupertinoButton.filled(
+              child: Row(
+                children: [
+                  Icon(Icons.exit_to_app),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text('Sign Out'),
+                ],
+              ),
+              onPressed: () {
+                AuthService().signOut();
+                Navigator.of(context).pop();
+              },
+            ),
           ),
         ],
       ),
