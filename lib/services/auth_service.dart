@@ -84,4 +84,8 @@ class AuthService {
     await googleSignIn.disconnect();
     await googleSignIn.signOut();
   }
+
+  Future<void> facebook() async {
+//App
+  }
 }

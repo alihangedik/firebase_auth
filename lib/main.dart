@@ -40,10 +40,12 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CupertinoNavigationBar(
-        middle: Text('Firebase Auth'),
-        trailing: TextButton(
-          child: Text('Sign In'),
+      appBar: AppBar(title: Text('Firebase Auth'), centerTitle: true, actions: [
+        TextButton(
+          child: Text(
+            'Sign In',
+            style: TextStyle(color: Colors.white),
+          ),
           onPressed: () {
             Navigator.push(
                 context,
@@ -52,7 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ));
           },
         ),
-      ),
+      ]),
       body: Center(
         child: Container(
           height: 300,
@@ -110,23 +112,46 @@ class _RegisterPageState extends State<RegisterPage> {
                     context: context,
                   );
 
-                  tfPassword.clear();
+                  //  tfPassword.clear();
                 },
               ),
-              InkWell(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () {
-                  AuthService().signInGoogle().then(
-                      (value) => Navigator.of(context).push(MaterialPageRoute(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      AuthService().signInGoogle().then((value) =>
+                          Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => WelcomePage(),
                             settings: RouteSettings(arguments: value),
                           )));
-                },
-                child: Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1024px-Google_%22G%22_Logo.svg.png',
-                  scale: 30,
-                ),
+                    },
+                    child: Image.network(
+                      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1024px-Google_%22G%22_Logo.svg.png',
+                      scale: 30,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    // onTap: () {
+                    //   AuthService().signInGoogle().then((value) =>
+                    //       Navigator.of(context).push(MaterialPageRoute(
+                    //         builder: (context) => WelcomePage(),
+                    //         settings: RouteSettings(arguments: value),
+                    //       )));
+                    // },
+                    child: Image.network(
+                      'https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png',
+                      scale: 60,
+                    ),
+                  ),
+                ],
               )
             ],
           ),

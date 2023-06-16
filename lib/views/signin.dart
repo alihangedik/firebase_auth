@@ -1,4 +1,5 @@
 import 'package:firebase_auth_app/services/auth_service.dart';
+import 'package:firebase_auth_app/views/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,16 +17,18 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CupertinoNavigationBar(
-        middle: Text('Firebase Auth'),
-        trailing: TextButton(
-          child: Text('Exit'),
+      appBar: AppBar(title: Text('Firebase Auth'), centerTitle: true, actions: [
+        TextButton(
+          child: Text(
+            'Exit',
+            style: TextStyle(color: Colors.white),
+          ),
           onPressed: () {},
         ),
-      ),
+      ]),
       body: Center(
         child: Container(
-          height: 200,
+          height: 250,
           width: 300,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,6 +71,21 @@ class _SignInPageState extends State<SignInPage> {
                     password: tfPassword.text,
                   );
                 },
+              ),
+              InkWell(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () {
+                  AuthService().signInGoogle().then(
+                      (value) => Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => WelcomePage(),
+                            settings: RouteSettings(arguments: value),
+                          )));
+                },
+                child: Image.network(
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1024px-Google_%22G%22_Logo.svg.png',
+                  scale: 30,
+                ),
               )
             ],
           ),
