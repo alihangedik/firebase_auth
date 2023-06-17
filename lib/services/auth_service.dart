@@ -85,7 +85,30 @@ class AuthService {
     await googleSignIn.signOut();
   }
 
-  Future<void> facebook() async {
-//App
+  Future<AdditionalUserInfo?> signInWithGitHub(BuildContext context) async {
+    final result = await firebaseAuth.signInWithProvider(
+      GithubAuthProvider(),
+    );
+
+    // log('hata');
+    // // showDialog(
+    // //   context: context,
+    // //   builder: (context) => AlertDialog(
+    // //     title: Text('Hata'),
+    // //     content: Text('GitHub kimlik doğrulaması başarısız oldu.'),
+    // //     actions: [
+    // //       TextButton(
+    // //         child: Text('Tamam'),
+    // //         onPressed: () => Navigator.pop(context),
+    // //       ),
+    // //     ],
+    // //   ),
+    // // );
+    log(result.additionalUserInfo.toString());
+    return result.additionalUserInfo;
+  }
+
+  Future<void> signOutGithub() async {
+    await FirebaseAuth.instance.signOut();
   }
 }

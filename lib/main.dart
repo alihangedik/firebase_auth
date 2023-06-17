@@ -1,4 +1,5 @@
 import 'package:firebase_auth_app/services/auth_service.dart';
+import 'package:firebase_auth_app/views/github_profile.dart';
 import 'package:firebase_auth_app/views/signin.dart';
 import 'package:firebase_auth_app/views/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -139,16 +140,17 @@ class _RegisterPageState extends State<RegisterPage> {
                   InkWell(
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
-                    // onTap: () {
-                    //   AuthService().signInGoogle().then((value) =>
-                    //       Navigator.of(context).push(MaterialPageRoute(
-                    //         builder: (context) => WelcomePage(),
-                    //         settings: RouteSettings(arguments: value),
-                    //       )));
-                    // },
+                    onTap: () {
+                      AuthService().signInWithGitHub(context).then((value) =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => GithubWelcome(),
+                            settings: RouteSettings(arguments: value),
+                          )));
+                      ;
+                    },
                     child: Image.network(
-                      'https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png',
-                      scale: 60,
+                      'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
+                      scale: 12,
                     ),
                   ),
                 ],

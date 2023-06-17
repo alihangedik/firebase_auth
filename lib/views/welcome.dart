@@ -41,7 +41,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 width: 2,
               ),
               Center(
-                child: user!.emailVerified == true
+                child: user?.emailVerified == true
                     ? Icon(
                         Icons.verified,
                         size: 20,
