@@ -85,7 +85,7 @@ class AuthService {
     await googleSignIn.signOut();
   }
 
-  Future<AdditionalUserInfo?> signInWithGitHub(BuildContext context) async {
+  Future<AdditionalUserInfo?> signInWithGitHub() async {
     final result = await firebaseAuth.signInWithProvider(
       GithubAuthProvider(),
     );

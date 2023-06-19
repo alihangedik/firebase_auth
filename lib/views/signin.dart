@@ -95,7 +95,7 @@ class _SignInPageState extends State<SignInPage> {
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () {
-                      AuthService().signInWithGitHub(context).then((value) =>
+                      AuthService().signInWithGitHub().then((value) =>
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => GithubWelcome(),
                             settings: RouteSettings(arguments: value),

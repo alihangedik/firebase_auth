@@ -141,12 +141,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () {
-                      AuthService().signInWithGitHub(context).then((value) =>
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => GithubWelcome(),
-                            settings: RouteSettings(arguments: value),
-                          )));
-                      ;
+                      AuthService().signInWithGitHub();
                     },
                     child: Image.network(
                       'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
